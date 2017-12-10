@@ -1,7 +1,8 @@
 package CaesarShiftCipher;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 /**
  * Encrypts and Decrypts messages using the Caesar Shift Cipher
@@ -25,6 +26,9 @@ public class Cipher
     private static char[] alphabet = new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
                                                     'o', 'p', 'q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private static char[] shifted;
+    final private static String dictionaryFilePath = "src/CaesarShiftCipher/Dictionary.txt";
+    private static Set<String> dictionary;
+
     public static void main(String[] args)
     {
         Scanner kb = new Scanner(System.in);
@@ -39,9 +43,9 @@ public class Cipher
         for(String str : breakCipher(message))
         {
             if(i < 9)
-                System.out.println("Key " + (i+1) + ":  " + breakCipher(message)[i]);
+                System.out.println(str);
             else
-                System.out.println("Key " + (i+1) + ": " + breakCipher(message)[i]);
+                System.out.println(str);
             i++;
         }
     }
@@ -142,17 +146,63 @@ public class Cipher
         return encryptedText;
     }
 
+    private static Set<String> getDictionary ()
+    {
+        if (dictionary != null)
+            return dictionary;
+        Scanner file = null;
+        try
+        {
+            file = new Scanner(new File(dictionaryFilePath));
+            dictionary = new HashSet<>();
+            // For each word in the input
+            while (file.hasNext())
+            {
+                // Convert the word to lower case, trim it and insert into the set
+                dictionary.add(file.next().trim().toLowerCase());
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Cannot find dictionary file");
+        }
+        finally
+        {
+            file.close();
+        }
+        return dictionary;
+    }
+
+    //count number of words found in dictionary
+    public static int evaluateMetric(String input)
+    {
+        //split String by space, punctuation
+        String[] splitWords = input.split("[\\p{Punct}\\s]+");
+        int match = 0;
+
+        for (String s: splitWords)
+        {
+            if (getDictionary().contains(s))
+            {
+                match++;
+            }
+        }
+        return match;
+    }
     /**
      * Takes input of message as String str, and returns an array with all possible Caesar shifts
      * @param str
      * @return String array of all 26 possible shifted results
      */
-    public static String[] breakCipher(String str)
+    public static ArrayList<String> breakCipher(String str)
     {
         //Creating, populating and returning array of all possible String messages from encrypted String str
-        String[] possibilities = new String[26];
-        for(int i = 0; i < 26; i++)
-            possibilities[i] = decrypt(str, i+1);
+        ArrayList<String> possibilities = new ArrayList<>();
+        for(int i = 1; i < 27; i++)
+        {
+            if(evaluateMetric(decrypt(str, i)) > 0)
+                possibilities.add("Key " + i + ": " + decrypt(str, i));
+        }
         return possibilities;
     }
 }

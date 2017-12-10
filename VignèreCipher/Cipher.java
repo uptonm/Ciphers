@@ -21,7 +21,7 @@ public class Cipher
         message = kb.nextLine();
         System.out.print("Enter the key: ");
         key = kb.next();
-        message = decrypt(message, key);
+        message = encrypt(message, key);
 
         System.out.println("EncryptedText: " + message);
     }

@@ -17,6 +17,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 
+import java.util.ArrayList;
+
 /**
  * @version 1.0 - 12/9/17
  * @author Mike Upton
@@ -136,36 +138,56 @@ public class CipherGUI extends Application
         {
             output.requestFocus();
             output.clear();
-            String[] possibilities = Cipher.breakCipher(message.getText());
+            ArrayList<String> possibilities = Cipher.breakCipher(message.getText());
             iterator = 0;
-            output.setText("Possibility " + (iterator + 1) + ": " + possibilities[iterator]);
-            output.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent ke)
-                {
-                    switch(ke.getCode())
-                    {
-                        case RIGHT:
-                            iterator++;
-                            if(iterator < 0)
-                                iterator = 25;
-                            else if(iterator > 25)
-                                iterator = 0;
-                            output.clear();
-                            output.setText("Possibility " + (iterator + 1) + ": " + possibilities[iterator]);
-                            break;
-                        case LEFT:
-                            iterator--;
-                            if(iterator < 0)
-                                iterator = 25;
-                            else if(iterator > 25)
-                                iterator = 0;
-                            output.clear();
-                            output.setText("Possibility " + (iterator + 1) + ": " + possibilities[iterator]);
-                            break;
+            output.setText(possibilities.get(iterator));
+
+            if(possibilities.size() > 1)
+            {
+                output.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent ke) {
+                        switch (ke.getCode()) {
+                            case RIGHT:
+                                iterator++;
+                                if (iterator < 0)
+                                    iterator = possibilities.size()-1;
+                                else if (iterator > possibilities.size()-1)
+                                    iterator = 0;
+                                output.clear();
+                                output.setText(possibilities.get(iterator));
+                                break;
+                            case LEFT:
+                                iterator--;
+                                if (iterator < 0)
+                                    iterator = possibilities.size()-1;
+                                else if (iterator > possibilities.size()-1)
+                                    iterator = 0;
+                                output.clear();
+                                output.setText(possibilities.get(iterator));
+                                break;
+                            case UP:
+                                iterator++;
+                                if (iterator < 0)
+                                    iterator = possibilities.size()-1;
+                                else if (iterator > possibilities.size()-1)
+                                    iterator = 0;
+                                output.clear();
+                                output.setText(possibilities.get(iterator));
+                                break;
+                            case DOWN:
+                                iterator--;
+                                if (iterator < 0)
+                                    iterator = possibilities.size()-1;
+                                else if (iterator > possibilities.size()-1)
+                                    iterator = 0;
+                                output.clear();
+                                output.setText(possibilities.get(iterator));
+                                break;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         else if(!key.getText().equals(""))
         {
