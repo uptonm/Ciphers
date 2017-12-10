@@ -9,4 +9,5 @@
 # Vignère Cipher:
 - A Vignère cipher is a slightly more complicated cipher with the main difference being that the key is a word.
 - The best way to understand how the cipher works is through the table below:
-|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
