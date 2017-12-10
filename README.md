@@ -22,3 +22,5 @@
 | Index | 7 | 4 | 11| 11| 14|
 | Key | W | O | R | L | D |
 | Index | 22| 14| 17| 11| 3 |
+|Index|7 shifted 22 = 3|4 shifted 14 = 18|11 shifted 17 = 2|11 shifted 11 = 22|14 shifted 3 = 17|
+| Encrypted | D| S| C| W| R |
