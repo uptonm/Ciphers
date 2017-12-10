@@ -3,6 +3,10 @@ package VignèreCipher;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @version 1.0 - 12/9/17
+ * @author Mike Upton
+ */
 public class Cipher
 {
     private static char[] alphabet = new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',

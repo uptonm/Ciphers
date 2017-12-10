@@ -17,7 +17,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 
-
+/**
+ * @version 1.0 - 12/9/17
+ * @author Mike Upton
+ */
 public class CipherGUI extends Application
 {
     private int iterator = 0;
